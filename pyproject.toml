@@ -1,16 +1,57 @@
-[project]
+[tool.poetry]
 name = "itogovoe-9"
 version = "0.1.0"
-description = ""
-authors = [
-    {name = "Михаил"}
-]
+description = "Учебный проект Django с настройкой Docker и CI/CD"
+authors = ["Михаил"]
 readme = "README.md"
-requires-python = ">=3.13"
-dependencies = [
-]
+packages = [{ include = "config" }, { include = "core" }]
 
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^5.0"
+djangorestframework = "^3.15"
+gunicorn = "^21.2"
+psycopg2-binary = "^2.9"
+celery = "^5.3"
+redis = "^5.0"
+django-environ = "^0.11"
+django-celery-beat = "^2.6"
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.4"
+flake8 = "^7.1"
+isort = "^5.13"
+pytest = "^8.2"
+pytest-django = "^4.8"
 
 [build-system]
-requires = ["poetry-core>=2.0.0,<3.0.0"]
+requires = ["poetry-core>=1.8.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 88
+target-version = ["py311"]
+exclude = [
+    ".git",
+    ".venv",
+    "build",
+    "dist",
+]
+
+[tool.isort]
+profile = "black"
+known_first_party = ["config", "core"]
+line_length = 88
+
+[tool.flake8]
+max-line-length = 88
+extend-ignore = ["E203", "W503"]
+exclude = [
+    ".git",
+    "__pycache__",
+    ".venv",
+]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings"
+python_files = "tests.py test_*.py *_tests.py"
