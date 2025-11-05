@@ -1,0 +1,13 @@
+.git
+.gitignore
+__pycache__
+*.py[cod]
+*.sqlite3
+.env
+.env.*
+venv/
+.poetry*
+.pytest_cache
+.idea
+staticfiles
+media
